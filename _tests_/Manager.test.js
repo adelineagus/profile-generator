@@ -2,7 +2,7 @@
 const Manager= require("../lib/Manager");
 
 describe("Manager", () =>{
-    it("should set officeNumber as a property", () =>{
+    it("should create manager object and set officeNumber as a property", () =>{
         const officeNumber= 123456789;
         const adeline= new Manager("Adeline",15,"adelineaguspranoto@gmail.com",123456789);
 

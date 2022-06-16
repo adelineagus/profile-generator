@@ -1,0 +1,29 @@
+{
+  "name": "profile-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adelineagus/profile-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "bugs": {
+    "url": "https://github.com/adelineagus/profile-generator/issues"
+  },
+  "homepage": "https://github.com/adelineagus/profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}

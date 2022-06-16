@@ -2,7 +2,7 @@
 const Engineer = require("../lib/Engineer");
 
 describe("Engineer", () =>{
-    it("should set gitHub as a property", () =>{
+    it("should create engineer object and set gitHub as a property", () =>{
         const gitHub= "adelineagus";
         const adeline= new Engineer("Adeline",15,"adelineaguspranoto@gmail.com","adelineagus");
 

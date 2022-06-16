@@ -7,7 +7,6 @@ describe("Employee", () => {
         const email= "adelineaguspranoto@gmail.com";
         const adeline= new Employee("Adeline",15,"adelineaguspranoto@gmail.com");
 
-        expect(typeof(adeline).toBe("object"));
         expect(adeline.name).toEqual(name);
         expect(adeline.id).toEqual(id);
         expect(adeline.email).toEqual(email);
