@@ -58,7 +58,9 @@ const questions = () =>{
             choices: ['yes','no']
         }
     ])
-    
+    .then((answers)=> {
+        return memberGenerator(answers)})
+        
 }
 
 
@@ -73,10 +75,11 @@ function memberGenerator(answers){
     }
     teamMember.push(member);
     if (answers.addMember==='yes'){
-        init();
+        return questions();
     } else {
         return teamMember;
     }
+
 }
 
 
@@ -84,14 +87,14 @@ function generateHTML(teamMember){
     let memberCards=[];
     for(let i=0;i<teamMember.length;i++){
         const member= teamMember[i];
+        console.log(member);
         const memberCard= generateCard(member);
 
         memberCards.push(memberCard);
     }
-
+    console.log(memberCards);
     const membercardsHTML= memberCards.join(' ');
     const pageHTML=templateHTML(membercardsHTML);
-    console.log(pageHTML);
     return pageHTML;
 }
 
@@ -136,11 +139,16 @@ function writeToFile(fileName,data){
 }
 
 function init(){
+    console.log(teamMember.length);
     questions()
-        .then((answers)=>memberGenerator(answers))
+        //.then((answers)=>memberGenerator(answers))
         .then((teamMember)=>generateHTML(teamMember))
         .then((pageHTML)=>writeToFile('index.html',pageHTML))
         .catch((err)=>console.log(err));
 }
 
+//questions()
+    //.then((teamMember)=>generateHTML(teamMember))
+    //.then((pageHTML)=>writeToFile('index.html',pageHTML))
+    //.catch((err)=>console.log(err));
 init();
