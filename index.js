@@ -143,7 +143,7 @@ function init(){
     questions()
         //.then((answers)=>memberGenerator(answers))
         .then((teamMember)=>generateHTML(teamMember))
-        .then((pageHTML)=>writeToFile('index.html',pageHTML))
+        .then((pageHTML)=>writeToFile('./dist/index.html',pageHTML))
         .catch((err)=>console.log(err));
 }
 
