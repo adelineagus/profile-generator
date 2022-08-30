@@ -34,6 +34,7 @@
   In terminal, run node index and answers questions from command line. Once prompts are filled out, index.html will be generated under dist. Right click on the html and select open in default browser/open in other browser.
 
   Screenshot Terminal: [link](./images/Application%20-%20Terminal.png)
+  
   Screenshot Page: [link](./images/HTML%20Page.png)
 
   Walkthrough video: https://drive.google.com/file/d/1O7gQx4xrPZUVg_xt8FR3PfjwuBY-S4In/view
