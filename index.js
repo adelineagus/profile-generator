@@ -17,18 +17,24 @@ const initQuestions = () =>{
         {
             type:'input',
             name:'id',
-            message:"enter member's id:"
+            message:"enter manager's id:"
         },
         {
             type:'input',
             name:'email',
-            message: "enter member's e-mail:",
+            message: "enter manager's e-mail:",
         },
         
         {
             type:'input',
             name:'otherInfo',
             message:"enter manager's office number:",
+        },
+        {
+            type: 'list',
+            name: 'addMember',
+            message: 'add members?',
+            choices: ['yes','no']
         }
     ])
     .then((answers)=> {
@@ -94,7 +100,7 @@ function memberGenerator(answers){
         member= new Manager(answers.name,answers.id,answers.email,answers.otherInfo);
     }
     teamMember.push(member);
-    if (answers.addMember==='yes'||member.getRole()==='Manager'){
+    if (answers.addMember==='yes'){
         console.log("adding member");
         return questions();
     } else {
