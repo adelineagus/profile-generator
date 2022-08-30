@@ -7,12 +7,12 @@ const templateHTML=require('./src/templateHTML');
 
 const teamMember=[];
 
-const managerQuestions = () =>{
+const initQuestions = () =>{
     return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: 'enter name:'
+            message: "enter manager's name:"
         },
         {
             type:'input',
@@ -61,13 +61,6 @@ const questions = () =>{
         {
             type:'input',
             name:'otherInfo',
-            message:"enter manager's office number:",
-            when: (input)=>input.role==='Manager'
-        },
-
-        {
-            type:'input',
-            name:'otherInfo',
             message:"enter engineer's github username:",
             when: (input)=>input.role==='Engineer'
         },
@@ -102,10 +95,12 @@ function memberGenerator(answers){
     }
     teamMember.push(member);
     if (answers.addMember==='yes'||member.getRole()==='Manager'){
+        console.log("adding member");
         return questions();
     } else {
         return teamMember;
     }
+
 
 }
 
@@ -134,25 +129,25 @@ function generateCard(member){
         getInfo= member.getOfficenumber();
     }else if(role==="Engineer"){
         otherInfo="GitHub";
-        getInfo= member.getGithub();
+        getInfo= "<a href= https://github.com/"+member.getGithub()+">"+member.getGithub()+"</a>";
     } else{
         otherInfo="School";
         getInfo=member.getSchool();
     }
 
     return `
-    <section class="card">
-        <section class="card-header">
-            <h3> ${member.getName()}</h3>
-            <h3>${member.getRole()}</h3>
-        </section>
-        <section class="card-body">
-            <p>ID: ${member.getId()}</p>
-            <p>email: ${member.getEmail()}</p>
-            <p>${otherInfo}: ${getInfo}</p>
-        </section>
-    </section>
-    `
+                <section class="card">
+                    <section class="card-header">
+                        <h3> ${member.getName()}</h3>
+                        <h3>${member.getRole()}</h3>
+                    </section>
+                    <section class="card-body">
+                        <p>ID: ${member.getId()}</p>
+                        <p>email: <a href = "mailto:${member.getEmail()}">${member.getEmail()}</a></p>
+                        <p>${otherInfo}: ${getInfo}</p>
+                    </section>
+                </section>
+            `
 }
 
 function writeToFile(fileName,data){
@@ -167,7 +162,7 @@ function writeToFile(fileName,data){
 
 function init(){
     console.log(teamMember.length);
-    managerQuestions()
+    initQuestions()
         //.then((answers)=>memberGenerator(answers))
         .then((teamMember)=>generateHTML(teamMember))
         .then((pageHTML)=>writeToFile('./dist/index.html',pageHTML))
