@@ -1,3 +1,5 @@
+//create function to generate data with HTML format
+
 function templateHTML(cards){
     return `<!DOCTYPE html>
     <html>

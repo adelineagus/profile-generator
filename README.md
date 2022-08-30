@@ -36,8 +36,6 @@
   Screenshot: [link](./images/Readme%20Terminal.png)
 
   Walkthrough video: https://drive.google.com/file/d/1U-8c0WpzwryJqOahy1edCngPE_XTFO9b/view
-  
-  Table of contents functionality: https://drive.google.com/file/d/1atooAZnP37X5i_NQRe8OeqKqP8ziuWXP/view
 
   ## Credits
   Collaborators: Adeline Aguspranoto
@@ -48,7 +46,7 @@
     MIT: https://opensource.org/licenses/MIT
 
   ## Tests
-  In terminal, run "npm run tests"
+  In terminal, run "npm run test"
 
   ## Questions
   To see more projects, visit my github page at https://github.com/adelineagus. If you have any questions regarding this project, feel free to contact me at adelineaguspranoto@gmail.com.

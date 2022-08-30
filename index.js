@@ -1,3 +1,4 @@
+//import files needed
 const inquirer =require("inquirer");
 const fs= require("fs");
 const Manager= require("./lib/Manager");
@@ -7,6 +8,7 @@ const templateHTML=require('./src/templateHTML');
 
 const teamMember=[];
 
+//create initial prompts for manager's information
 const initQuestions = () =>{
     return inquirer.prompt([
         {
@@ -40,6 +42,8 @@ const initQuestions = () =>{
     .then((answers)=> {
         return memberGenerator(answers)})
 }
+
+//create prompts for additional members (engineer/interns)
 const questions = () =>{
     return inquirer.prompt([
         {
@@ -85,11 +89,10 @@ const questions = () =>{
         }
     ])
     .then((answers)=> {
-        return memberGenerator(answers)})
-        
+        return memberGenerator(answers)})     
 }
 
-
+//create members with different attributes/properties based on the roles selected
 function memberGenerator(answers){
     let member;
     if(answers.role==='Intern'){
@@ -102,30 +105,30 @@ function memberGenerator(answers){
     teamMember.push(member);
     if (answers.addMember==='yes'){
         console.log("adding member");
+        //ask more prompts
         return questions();
     } else {
         return teamMember;
     }
-
-
 }
 
-
+//create page using template imported
 function generateHTML(teamMember){
     let memberCards=[];
     for(let i=0;i<teamMember.length;i++){
         const member= teamMember[i];
-        console.log(member);
+
+        //calling generateCard function to generate cards
         const memberCard= generateCard(member);
 
         memberCards.push(memberCard);
     }
-    console.log(memberCards);
     const membercardsHTML= memberCards.join(' ');
     const pageHTML=templateHTML(membercardsHTML);
     return pageHTML;
 }
 
+//create cards for page contents
 function generateCard(member){
     const role= member.getRole();
     let otherInfo;
@@ -135,7 +138,7 @@ function generateCard(member){
         getInfo= member.getOfficenumber();
     }else if(role==="Engineer"){
         otherInfo="GitHub";
-        getInfo= "<a href= https://github.com/"+member.getGithub()+">"+member.getGithub()+"</a>";
+        getInfo= '<a href= https://github.com/'+member.getGithub()+' target="_blank">'+member.getGithub()+'</a>';
     } else{
         otherInfo="School";
         getInfo=member.getSchool();
@@ -156,6 +159,7 @@ function generateCard(member){
             `
 }
 
+//write pageData into a file 
 function writeToFile(fileName,data){
     fs.writeFileSync(fileName,data,err=>{
         if(err){
@@ -166,17 +170,16 @@ function writeToFile(fileName,data){
     })
 }
 
+//function to run the app
 function init(){
-    console.log(teamMember.length);
+    //start with questions
     initQuestions()
-        //.then((answers)=>memberGenerator(answers))
+        //once teamMember data is collected, generate page to display data
         .then((teamMember)=>generateHTML(teamMember))
+        //write pageData into specified file
         .then((pageHTML)=>writeToFile('./dist/index.html',pageHTML))
         .catch((err)=>console.log(err));
 }
 
-//questions()
-    //.then((teamMember)=>generateHTML(teamMember))
-    //.then((pageHTML)=>writeToFile('index.html',pageHTML))
-    //.catch((err)=>console.log(err));
+//call function to start
 init();
