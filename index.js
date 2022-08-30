@@ -7,7 +7,7 @@ const templateHTML=require('./src/templateHTML');
 
 const teamMember=[];
 
-const questions = () =>{
+const managerQuestions = () =>{
     return inquirer.prompt([
         {
             type: 'input',
@@ -15,10 +15,37 @@ const questions = () =>{
             message: 'enter name:'
         },
         {
+            type:'input',
+            name:'id',
+            message:"enter member's id:"
+        },
+        {
+            type:'input',
+            name:'email',
+            message: "enter member's e-mail:",
+        },
+        
+        {
+            type:'input',
+            name:'otherInfo',
+            message:"enter manager's office number:",
+        }
+    ])
+    .then((answers)=> {
+        return memberGenerator(answers)})
+}
+const questions = () =>{
+    return inquirer.prompt([
+        {
             type:'list',
             name:'role',
             message:'select role:',
-            choices: ['Manager', 'Engineer', 'Intern']
+            choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name',
+            message: 'enter name:'
         },
         {
             type:'input',
@@ -66,15 +93,15 @@ const questions = () =>{
 
 function memberGenerator(answers){
     let member;
-    if(answers.role==='Manager'){
-        member= new Manager(answers.name,answers.id,answers.email,answers.otherInfo);
+    if(answers.role==='Intern'){
+        member= new Intern(answers.name,answers.id,answers.email,answers.otherInfo);
     } else if (answers.role==='Engineer'){
         member= new Engineer(answers.name,answers.id,answers.email,answers.otherInfo);
     } else{
-        member= new Intern(answers.name,answers.id,answers.email,answers.otherInfo);
+        member= new Manager(answers.name,answers.id,answers.email,answers.otherInfo);
     }
     teamMember.push(member);
-    if (answers.addMember==='yes'){
+    if (answers.addMember==='yes'||member.getRole()==='Manager'){
         return questions();
     } else {
         return teamMember;
@@ -140,7 +167,7 @@ function writeToFile(fileName,data){
 
 function init(){
     console.log(teamMember.length);
-    questions()
+    managerQuestions()
         //.then((answers)=>memberGenerator(answers))
         .then((teamMember)=>generateHTML(teamMember))
         .then((pageHTML)=>writeToFile('./dist/index.html',pageHTML))
